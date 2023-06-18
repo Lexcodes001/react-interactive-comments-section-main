@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url("./src/assets/fonts/Rubik-VariableFont.ttf") format("truetype");
+}
+
+::-webkit-scrollbar{
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--grayish-blue);
+  border-radius: 10px;
+}
+
+:root {
+  --moderate-blue: rgb(84, 87, 182);
+  --soft-red: rgb(237, 100, 104);
+  --light-grayish-blue: rgb(195, 196, 239);
+  --pale-red: rgb(255, 184, 187);
+  --dark-blue: hsl(212, 24%, 26%);
+  --grayish-blue: rgba(103, 114, 126, 1);
+  --light-gray: hsl(223, 19%, 93%);
+  --very-light-gray: hsl(228, 33%, 97%);
+  --white: rgb(255, 255, 255);
+  --opaq: rgba(255, 255, 255,.8);
+
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 4rem 0 0;
+  color: var(--dark-blue);
+  background-color: var(--light-gray);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
