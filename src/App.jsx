@@ -166,7 +166,7 @@ const App = () => {
         initial={{opacity: 0.5}}
         animate={{opacity: 1}}
         exit={{opacity: 0.5}}>
-        You are currently editing this {isReplying === true ? 'reply' : 'comment'}: <br /> "<span className='bold'>{filterContent.slice(0,30).trim()}</span>..."</motion.p>
+        You are currently editing this {!isComment ? 'reply' : 'comment'}: <br /> "<span className='bold'>{filterContent.slice(0,30).trim()}</span>..."</motion.p>
       };
       setDMsg(info);
       setCheckEditInfo(null);
@@ -399,8 +399,10 @@ const App = () => {
   const setEdit = (comment, isComment, reply) => {
     if (isComment) {
       setFilterContent(comment.content);
+      setIsComment(true);
     } else {
       setFilterContent(reply.content);
+      setIsComment(false);
     }
     isEditing === true && setDMsg(null);
     setIsEditing(!isEditing);
@@ -511,9 +513,9 @@ const App = () => {
         />
         
         <picture>
-          <source srcSet={currentUser.image.webp} media="(min-width: 969px)"/>
-          <source srcSet={currentUser.image.png} media="(min-width: 375px)"/>
-          <img src={currentUser.image.png} alt="user_name"/>
+          <source srcSet={...currentUser.image.webp} media="(min-width: 969px)"/>
+          <source srcSet={...currentUser.image.png} media="(min-width: 375px)"/>
+          <img src={...currentUser.image.png} alt="user_name"/>
         </picture>
         
         <button type="#" onClick={()=> addBtn()}>{btnText}</button>

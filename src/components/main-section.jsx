@@ -317,11 +317,11 @@ const MainSection = (props) => {
             <li className={`comment-box comment-item${commentData[commentData.indexOf(comment)]}}`}>
               <div className="user-details box">
                 <picture>
-                  <source srcSet={...comment.user.image.webp} media="(min-width: 969px)"/>
-                  <source srcSet={...comment.user.image.png} media="(min-width: 375px)"/>
-                  <img src={...comment.user.image.png} alt="user_name"/>
+                  <source srcSet={comment.user.image.webp} media="(min-width: 969px)"/>
+                  <source srcSet={comment.user.image.png} media="(min-width: 375px)"/>
+                  <img src={comment.user.image.png} alt="user_name"/>
                 </picture>
-                <p className="name">{...comment.user.username}</p>
+                <p className="name">{comment.user.username}</p>
                 <p className='user-badge' style= {{display: comment.user.username === props.currentUser.username ? 'block' : 'none'}}>{comment.user.username === props.currentUser.username ? <span>You</span> : ''}</p>
                 <p className="timestamp">{isNaN(comment.createdAt) === false ? updateTimeStamp(comment.createdAt) : (comment.createdAt) }</p>
               </div>
