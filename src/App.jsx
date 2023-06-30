@@ -513,9 +513,9 @@ const App = () => {
         />
         
         <picture>
-          <source srcSet={...currentUser.image.webp} media="(min-width: 969px)"/>
-          <source srcSet={...currentUser.image.png} media="(min-width: 375px)"/>
-          <img src={...currentUser.image.png} alt="user_name"/>
+          <source srcSet={currentUser.image.webp} media="(min-width: 969px)"/>
+          <source srcSet={currentUser.image.png} media="(min-width: 375px)"/>
+          <img src={currentUser.image.png} alt="user_name"/>
         </picture>
         
         <button type="#" onClick={()=> addBtn()}>{btnText}</button>

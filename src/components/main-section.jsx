@@ -6,6 +6,65 @@ import minusIcon from '../assets/images/icon-minus.svg';
 import plusIcon from '../assets/images/icon-plus.svg';
 import replyIcon from '../assets/images/icon-reply.svg';
 
+const ReplyBox = (props) => {
+  const [replyValue, setReplyValue] = useState('');
+  const [inputScrollHeight, setInputScrollHeight] = useState(null);
+  console.log(props.currentUser);
+  return(
+    <div className="reply-input-box">
+      <picture>
+            <source 
+              srcSet={props.currentUser.image.webp}
+              media="(min-width: 969px)"/>
+            <source 
+              srcSet={props.currentUser.image.png}
+              media="(min-width: 375px)"/>
+            <img 
+              src={props.currentUser.image.png} 
+              alt="user_name"/>
+      </picture>
+      
+      <textarea 
+        id="userReply"
+        name="userReply"
+        value={replyValue}
+        onChange={(event)=>{
+          setReplyValue(event.target.value);
+          setInputScrollHeight('auto');
+          setInputScrollHeight(event.target.scrollHeight - 6);
+        }}
+        style={{height: (inputScrollHeight < 46 || replyValue === '') ? 46 : inputScrollHeight +'px'}}
+      />
+      
+      <button type="#" onClick={()=>{addReply(props.comment, replyValue)}}>Reply</button>
+    </div>
+  );
+}
+
+const EditBox = (props) => {
+  const [editValue, setEditValue] = useState(props.isComment ? props.comment.content : props.reply.content);
+  const [inputScrollHeight, setInputScrollHeight] = useState(null);
+
+  return(
+    <div className="edit-input-box">
+      
+      <textarea 
+        id="userEdit"
+        name="userEdit"
+        value={editValue}
+        onChange={(event)=>{
+          setEditValue(event.target.value);
+          setInputScrollHeight('auto');
+          setInputScrollHeight(event.target.scrollHeight - 6);
+        }}
+        style={{height: (inputScrollHeight < 46 || editValue === '') ? 46 : inputScrollHeight + 'px'}}
+      />
+      
+      <button type="#" onClick={()=> editContent(props.comment, props.isComment, props.reply, editValue)}>Edit</button>
+    </div>
+  );
+}
+
 const MainSection = (props) => {
   const [commentData, setCommentData] = useState(props.data);
   const [update, setUpdate] = useState(true);
@@ -32,63 +91,6 @@ const MainSection = (props) => {
     return <div>Error: {error.message}</div>;
   }
 
-  const ReplyBox = (props) => {
-    const [replyValue, setReplyValue] = useState('');
-    const [inputScrollHeight, setInputScrollHeight] = useState(null);
-    return(
-      <div className="reply-input-box">
-        <picture>
-              <source 
-                srcSet="./src/assets/images/avatars/image-juliusomo.webp"
-                media="(min-width: 969px)"/>
-              <source 
-                srcSet="./src/assets/images/avatars/image-juliusomo.png"
-                media="(min-width: 375px)"/>
-              <img 
-                src="./src/assets/images/avatars/image-juliusomo.png" 
-                alt="user_name"/>
-        </picture>
-        
-        <textarea 
-          id="userReply"
-          name="userReply"
-          value={replyValue}
-          onChange={(event)=>{
-            setReplyValue(event.target.value);
-            setInputScrollHeight('auto');
-            setInputScrollHeight(event.target.scrollHeight - 6);
-          }}
-          style={{height: (inputScrollHeight < 46 || replyValue === '') ? 46 : inputScrollHeight +'px'}}
-        />
-        
-        <button type="#" onClick={()=>{addReply(props.comment, replyValue)}}>Reply</button>
-      </div>
-    );
-  }
-
-  const EditBox = (props) => {
-    const [editValue, setEditValue] = useState(props.isComment ? props.comment.content : props.reply.content);
-    const [inputScrollHeight, setInputScrollHeight] = useState(null);
-
-    return(
-      <div className="edit-input-box">
-        
-        <textarea 
-          id="userEdit"
-          name="userEdit"
-          value={editValue}
-          onChange={(event)=>{
-            setEditValue(event.target.value);
-            setInputScrollHeight('auto');
-            setInputScrollHeight(event.target.scrollHeight - 6);
-          }}
-          style={{height: (inputScrollHeight < 46 || editValue === '') ? 46 : inputScrollHeight + 'px'}}
-        />
-        
-        <button type="#" onClick={()=> editContent(props.comment, props.isComment, props.reply, editValue)}>Edit</button>
-      </div>
-    );
-  }
 
   const checkForActions = (comment, isComment, reply, commentId, replyId) => {
     let commentActions = <>
@@ -172,7 +174,7 @@ const MainSection = (props) => {
                   </div>
                 </li>
                 {
-                  (reply.user.username != props.currentUser.username) && (reply === savedReplyContent[1]) ? <ReplyBox key={replyId} comment={comment} /> : ''
+                  (reply.user.username != props.currentUser.username) && (reply === savedReplyContent[1]) ? <ReplyBox key={replyId} comment={comment} currentUser={props.currentUser}/> : ''
                 }
               </div>
       )));
@@ -351,7 +353,7 @@ const MainSection = (props) => {
               </div>
             </li>
             {
-              (comment.user.username != props.currentUser.username) && (comment === savedReplyContent[0] && savedReplyContent[1] === false && props.isReplying) ? <ReplyBox key={commentId} comment={comment}/> : ''
+              (comment.user.username != props.currentUser.username) && (comment === savedReplyContent[0] && savedReplyContent[1] === false && props.isReplying) ? <ReplyBox key={commentId} comment={comment} currentUser={props.currentUser}/> : ''
             }
             <ul className='reply-container'>{checkReply(comment, commentId)}</ul>
           </motion.div>
