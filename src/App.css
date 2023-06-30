@@ -464,6 +464,22 @@ button.disabled{
   background-color: var(--soft-red);
 }
 
+.fade-in-top-one {
+  animation: fade-in-top-one .5s ease-in-out both;
+}
+
+.fade-in-bottom-one {
+  animation: fade-in-bottom-one .5s ease-in-out both;
+}
+
+.fade-in-top {
+  animation: fade-in-top .5s ease-in-out both;
+}
+
+.fade-in-bottom {
+  animation: fade-in-bottom .5s ease-in-out both;
+}
+
 @keyframes slide-in-right {
   0% {
     -webkit-transform: translateX(15px);

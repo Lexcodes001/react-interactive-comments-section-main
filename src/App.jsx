@@ -103,12 +103,15 @@ const App = () => {
   const [inputScrollHeight, setInputScrollHeight] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
   const scrollListenerRef = useRef(null);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [goingDown, setGoingDown] = useState(false);
   const [btnText, setBtnText] = useState("Send");
   const [sMsg, setSMsg] = useState([]);
   const [dMsg, setDMsg] = useState(null);
   const [checkReplyInfo, setCheckReplyInfo] = useState(false);
   const [checkEditInfo, setCheckEditInfo] = useState(false);
-
+  const inputBoxRef = useRef(null);
+  
   useEffect(() => {
     fetch('./src/assets/data.json')
       .then(response => {
@@ -152,7 +155,7 @@ const App = () => {
         window.removeEventListener('scroll', handleScrollEvent);
       };
     }
-  }, [isSticky]);
+  }, [window.innerWidth]);
 
   
   useEffect(()=>{
@@ -252,6 +255,32 @@ const App = () => {
     }
     console.log('naught!');
   }, [variants, filterContent, replyingTo, isEditing, isReplying, hasCommented, hasEdited, hasReplied, hasDeleted, isComment, commentId, replyId]);
+
+  useEffect(() => {
+    let scrollPosition = window.pageYOffset;
+  
+    if (scrollPosition > prevScrollPos) {
+      setGoingDown(true);
+    }
+  
+    setPrevScrollPos(scrollPosition);
+
+    const userInput = inputBoxRef.current;
+
+    const handleGoingDown = (e) => {
+      if (((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100)  || (userInput == document.activeElement)) {
+        setGoingDown(false);
+      }
+    }
+
+    console.log(goingDown);
+
+    window.addEventListener("scroll", handleGoingDown);
+
+    return () => {
+      window.removeEventListener('scroll',handleGoingDown);
+    };
+  }, [window.scrollY]);
 
   const changeUser = (user) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
@@ -501,6 +530,7 @@ const App = () => {
         </div>
         
         <textarea 
+          ref={inputBoxRef}
           id="userInput"
           name="userInput"
           value={inputValue}
