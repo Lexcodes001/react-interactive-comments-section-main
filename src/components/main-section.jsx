@@ -132,10 +132,8 @@ const MainSection = (props) => {
 
   const checkReply = (comment, commentId) => {
     if (comment.replies.length !== 0) {
-      //comment.replies = comment.replies.filter((item) => item != null);
       return(
         comment.replies.map((reply, replyId) => (
-        //return (
               <div key={replyId}>
                 <li className={`reply-box reply-item${commentData[commentData.indexOf(comment)].replies.indexOf(reply)}}`}>
                   <div className="user-details box">
@@ -151,7 +149,7 @@ const MainSection = (props) => {
                   
                   <div className="comment box">
                     {
-                      (reply.user.username === props.currentUser.username) && (savedEditContent[1] === reply) ? <EditBox key={replyId} comment={comment} isComment={false} reply={reply} setEdit={setEdit} editContent={editContent}/> : <p><span className="replying-to">@{reply.replyingTo} </span>{replaceNewlineWithBr(reply.content)}</p>
+                      (reply.user.username === props.currentUser.username) && (savedEditContent[1] === reply) ? <EditBox key={replyId} comment={comment} isComment={false} reply={reply} editContent={editContent}/> : <p><span className="replying-to">@{reply.replyingTo} </span>{replaceNewlineWithBr(reply.content)}</p>
                     }
                   </div>
                   
@@ -174,7 +172,7 @@ const MainSection = (props) => {
                   </div>
                 </li>
                 {
-                  (reply.user.username != props.currentUser.username) && (reply === savedReplyContent[1]) ? <ReplyBox key={replyId} comment={comment} currentUser={props.currentUser} setReply={setReply} addReply={addReply}/> : ''
+                  (reply.user.username != props.currentUser.username) && (reply === savedReplyContent[1]) ? <ReplyBox key={replyId} comment={comment} currentUser={props.currentUser} addReply={addReply}/> : ''
                 }
               </div>
       )));

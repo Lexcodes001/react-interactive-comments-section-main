@@ -445,6 +445,7 @@ const App = () => {
     }
     isEditing === true && setDMsg(null);
     setIsEditing(!isEditing);
+    setHasEdited(false);
     setIsReplying(false);
     setCheckReplyInfo(false);
     setCheckEditInfo(checkEditInfo => {
