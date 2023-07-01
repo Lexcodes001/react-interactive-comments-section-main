@@ -120,10 +120,10 @@ const App = () => {
         return response.json();
       })
       .then(jsonData => {
-        console.log(currentUser);
         if (data.length === 0) {
           localStorage.setItem("currentUser", JSON.stringify(jsonData.users[0]));
           localStorage.setItem("comments", JSON.stringify(jsonData.comments));
+          window.location.reload(false);
         }
       })
       .catch(error => setError(error));
@@ -161,25 +161,25 @@ const App = () => {
 		const inputRef = inputBoxRef.current;
 		
     const handleScroll = () => {
-      const currentScrollPosition = window.pageYOffset;
-			const inputRef = inputBoxRef.current;
-      
-      if ((currentScrollPosition > lastScrollPosition)) {
-        setGoingDown(true);
-      } else {
-        setGoingDown(false);
+      if (data.length !== 0) {
+        const currentScrollPosition = window.pageYOffset;
+        const inputRef = inputBoxRef.current;
+        
+        if ((currentScrollPosition > lastScrollPosition)) {
+          setGoingDown(true);
+        } else {
+          setGoingDown(false);
+        }
+
+        if (((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 100)) || (window.pageYOffset === 0) || (inputRef == document.activeElement)) {
+          setGoingDown(false);
+        }
+
+        lastScrollPosition = currentScrollPosition;
       }
-
-			if (((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 100)) || (window.pageYOffset === 0) || (inputRef == document.activeElement)) {
-				setGoingDown(false);
-			}
-
-      lastScrollPosition = currentScrollPosition;
     };
 
-    if (data.length != 0) {
-      window.addEventListener('scroll', handleScroll);
-    }
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -290,7 +290,6 @@ const App = () => {
           setSMsg([]);
         }, 5000);
     }
-    console.log('naught!');
   }, [variants, filterContent, replyingTo, isEditing, isReplying, hasCommented, hasEdited, hasReplied, hasDeleted, isComment, commentId, replyId]);
 
   const changeUser = (user) => {
