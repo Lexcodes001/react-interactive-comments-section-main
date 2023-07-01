@@ -1,4 +1,4 @@
-# Frontend Mentor - Rock, Paper, Scissors solution
+# Frontend Mentor - Interactive-Comments-Section solution
 
 This is a solution to the [Interactive-Comments-Section](https://www.frontendmentor.io/challenges/interactive-comments-section). 
 
