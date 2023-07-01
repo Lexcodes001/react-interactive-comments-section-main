@@ -103,8 +103,8 @@ const App = () => {
   const [inputScrollHeight, setInputScrollHeight] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
   const scrollListenerRef = useRef(null);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [goingDown, setGoingDown] = useState(false);
+	//const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [btnText, setBtnText] = useState("Send");
   const [sMsg, setSMsg] = useState([]);
   const [dMsg, setDMsg] = useState(null);
@@ -144,6 +144,7 @@ const App = () => {
       scrollListenerRef.current = handleScroll;
   
       const handleScrollEvent = () => {
+				//const inputRef = inputBoxRef.current;
         if (scrollListenerRef.current) {
           scrollListenerRef.current();
         }
@@ -155,7 +156,7 @@ const App = () => {
         window.removeEventListener('scroll', handleScrollEvent);
       };
     }
-  }, [window.innerWidth]);
+  }, [window.pageYOffset]);
 
   
   useEffect(()=>{
@@ -257,30 +258,32 @@ const App = () => {
   }, [variants, filterContent, replyingTo, isEditing, isReplying, hasCommented, hasEdited, hasReplied, hasDeleted, isComment, commentId, replyId]);
 
   useEffect(() => {
-    let scrollPosition = window.pageYOffset;
-  
-    if (scrollPosition > prevScrollPos) {
-      setGoingDown(true);
-    }
-  
-    setPrevScrollPos(scrollPosition);
-
-    const userInput = inputBoxRef.current;
-
-    const handleGoingDown = (e) => {
-      if (((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100)  || (userInput == document.activeElement)) {
+    let lastScrollPosition = window.pageYOffset;
+		const inputRef = inputBoxRef.current;
+		
+    const handleScroll = () => {
+      const currentScrollPosition = window.pageYOffset;
+			const inputRef = inputBoxRef.current;
+      
+      if ((currentScrollPosition > lastScrollPosition)) {
+        setGoingDown(true);
+      } else {
         setGoingDown(false);
       }
-    }
 
-    console.log(goingDown);
+			if (((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 100)) || (window.pageYOffset === 0) || (inputRef == document.activeElement)) {
+				setGoingDown(false);
+			}
 
-    window.addEventListener("scroll", handleGoingDown);
+      lastScrollPosition = currentScrollPosition;
+    };
+
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('scroll',handleGoingDown);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [window.scrollY]);
+  }, []);
 
   const changeUser = (user) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
@@ -488,7 +491,7 @@ const App = () => {
 
   return (
     <div className='body'>
-      <nav className="">
+      <nav className={`${goingDown ? 'fade-in-bottom-one' : 'fade-in-top-one'}`}>
         <h1 className="">Comment Section</h1>
         <UserToggle 
           data={data} 
@@ -515,7 +518,8 @@ const App = () => {
         editContent={(comment, isComment, replyId, content, id)=>{editContent(comment, isComment, replyId, content, id)}}
         variants={variants}
       />
-      <div className={isSticky ? 'input-box is-sticky' : 'input-box'} ref={stickyElementRef}>
+      <div className={`${isSticky ? 'input-box is-sticky' : 'input-box'} ${goingDown ? 'fade-in-top' : 'fade-in-bottom'}`} 
+			  ref={stickyElementRef}>
         <div className='infoText'>
           <AnimatePresence mode='popLayout'>
             <motion.p

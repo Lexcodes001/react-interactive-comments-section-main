@@ -36,7 +36,7 @@ const ReplyBox = (props) => {
         style={{height: (inputScrollHeight < 46 || replyValue === '') ? 46 : inputScrollHeight +'px'}}
       />
       
-      <button type="#" onClick={()=>{addReply(props.comment, replyValue)}}>Reply</button>
+      <button type="#" onClick={()=>{props.addReply(props.comment, replyValue)}}>Reply</button>
     </div>
   );
 }
@@ -60,7 +60,7 @@ const EditBox = (props) => {
         style={{height: (inputScrollHeight < 46 || editValue === '') ? 46 : inputScrollHeight + 'px'}}
       />
       
-      <button type="#" onClick={()=> editContent(props.comment, props.isComment, props.reply, editValue)}>Edit</button>
+      <button type="#" onClick={props.editContent(props.comment, props.isComment, props.reply, editValue)}>Edit</button>
     </div>
   );
 }
@@ -151,7 +151,7 @@ const MainSection = (props) => {
                   
                   <div className="comment box">
                     {
-                      (reply.user.username === props.currentUser.username) && (savedEditContent[1] === reply) ? <EditBox key={replyId} comment={comment} isComment={false} reply={reply}/> : <p><span className="replying-to">@{reply.replyingTo} </span>{replaceNewlineWithBr(reply.content)}</p>
+                      (reply.user.username === props.currentUser.username) && (savedEditContent[1] === reply) ? <EditBox key={replyId} comment={comment} isComment={false} reply={reply} setEdit={setEdit} editContent={editContent}/> : <p><span className="replying-to">@{reply.replyingTo} </span>{replaceNewlineWithBr(reply.content)}</p>
                     }
                   </div>
                   
@@ -174,7 +174,7 @@ const MainSection = (props) => {
                   </div>
                 </li>
                 {
-                  (reply.user.username != props.currentUser.username) && (reply === savedReplyContent[1]) ? <ReplyBox key={replyId} comment={comment} currentUser={props.currentUser}/> : ''
+                  (reply.user.username != props.currentUser.username) && (reply === savedReplyContent[1]) ? <ReplyBox key={replyId} comment={comment} currentUser={props.currentUser} setReply={setReply} addReply={addReply}/> : ''
                 }
               </div>
       )));
@@ -330,7 +330,7 @@ const MainSection = (props) => {
               
               <div className="comment box">
                 {
-                (comment.user.username === props.currentUser.username) && (comment === savedEditContent[0] && savedEditContent[1] === false && props.isEditing) ? <EditBox key={commentId} comment={comment} isComment={true} reply={null}/> : <p>{replaceNewlineWithBr(comment.content)}</p>
+                (comment.user.username === props.currentUser.username) && (comment === savedEditContent[0] && savedEditContent[1] === false && props.isEditing) ? <EditBox key={commentId} comment={comment} isComment={true} reply={null} setEdit={setEdit} editContent={eđitContent}/> : <p>{replaceNewlineWithBr(comment.content)}</p>
               }
               </div>
               
@@ -353,7 +353,7 @@ const MainSection = (props) => {
               </div>
             </li>
             {
-              (comment.user.username != props.currentUser.username) && (comment === savedReplyContent[0] && savedReplyContent[1] === false && props.isReplying) ? <ReplyBox key={commentId} comment={comment} currentUser={props.currentUser}/> : ''
+              (comment.user.username != props.currentUser.username) && (comment === savedReplyContent[0] && savedReplyContent[1] === false && props.isReplying) ? <ReplyBox key={commentId} comment={comment} currentUser={props.currentUser} setReply={setReply} addReply={addReply}/> : ''
             }
             <ul className='reply-container'>{checkReply(comment, commentId)}</ul>
           </motion.div>

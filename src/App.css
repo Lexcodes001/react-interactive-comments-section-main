@@ -1,5 +1,5 @@
 .body{
-  padding: 0 0 3rem;
+  padding: 0 0 1rem;
 }
 
 .info-container{
@@ -280,12 +280,13 @@ nav{
   width: auto;
   margin: auto 1rem;
   background-color: var(--white);
+	border-top: 4px solid var(--light-gray);
 }
 
 .is-sticky{
   width: 100%;
   margin: auto;
-  border-top: 1px solid rgba(103, 114, 126, .3);
+  border-top: 4px solid var(--light-gray);
   border-radius: 1rem 1rem 0 0;
   background-color: var(--opaq);
   backdrop-filter: blur(3px);
