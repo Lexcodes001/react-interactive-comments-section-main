@@ -120,6 +120,7 @@ const App = () => {
         return response.json();
       })
       .then(jsonData => {
+				alert(data.length);
         if (data.length === 0) {
           localStorage.setItem("currentUser", JSON.stringify(jsonData.users[0]));
           localStorage.setItem("comments", JSON.stringify(jsonData.comments));
