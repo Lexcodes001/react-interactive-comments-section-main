@@ -87,7 +87,7 @@ const MainSection = (props) => {
           style={{height: (inputScrollHeight < 46 || editValue === '') ? 46 : inputScrollHeight + 'px'}}
         />
         
-        <button type="#" onClick={props.editContent(props.comment, props.isComment, props.reply, editValue)}>Edit</button>
+        <button type="#" onClick={()=>props.editContent(props.comment, props.isComment, props.reply, editValue)}>Edit</button>
       </div>
     );
   }
@@ -100,7 +100,7 @@ const MainSection = (props) => {
         onClick={()=>{deleteContent(comment, isComment, null)}} className="delete"><img src={deleteIcon} alt="."/>Delete</motion.span>
       <motion.span 
         whileTap={{scale: 0.9}}
-        onClick={()=>setEdit(comment, isComment, null)} className='edit'><img src={editIcon} alt='.'/>Edit</motion.span>
+        onClick={()=>setEdit(comment, isComment, false)} className='edit'><img src={editIcon} alt='.'/>Edit</motion.span>
     </>;
     
     let replyActions = <>
@@ -196,7 +196,7 @@ const MainSection = (props) => {
       if (savedEditContent[0] === comment) {
         setSavedEditContent([false, false]);
       } else {
-        setSavedEditContent([comment, false]);
+        setSavedEditContent([comment, reply]);
       }
     } else {
       if ((savedEditContent[0] === comment) && (savedEditContent[1] === reply)) {
@@ -329,7 +329,7 @@ const MainSection = (props) => {
               
               <div className="comment box">
                 {
-                (comment.user.username === props.currentUser.username) && (comment === savedEditContent[0] && savedEditContent[1] === false && props.isEditing) ? <EditBox key={commentId} comment={comment} isComment={true} reply={null} setEdit={setEdit} editContent={eđitContent}/> : <p>{replaceNewlineWithBr(comment.content)}</p>
+                (comment.user.username === props.currentUser.username) && (comment === savedEditContent[0] && savedEditContent[1] === false && props.isEditing) ? <EditBox key={commentId} comment={comment} isComment={true} reply={null} editContent={editContent} /> : <p>{replaceNewlineWithBr(comment.content)}</p>
               }
               </div>
               
