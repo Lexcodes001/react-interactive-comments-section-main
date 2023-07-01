@@ -104,7 +104,6 @@ const App = () => {
   const [isSticky, setIsSticky] = useState(false);
   const scrollListenerRef = useRef(null);
   const [goingDown, setGoingDown] = useState(false);
-	//const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [btnText, setBtnText] = useState("Send");
   const [sMsg, setSMsg] = useState([]);
   const [dMsg, setDMsg] = useState(null);
@@ -144,7 +143,6 @@ const App = () => {
       scrollListenerRef.current = handleScroll;
   
       const handleScrollEvent = () => {
-				//const inputRef = inputBoxRef.current;
         if (scrollListenerRef.current) {
           scrollListenerRef.current();
         }
@@ -157,6 +155,36 @@ const App = () => {
       };
     }
   }, [window.pageYOffset]);
+
+  useEffect(() => {
+    let lastScrollPosition = window.pageYOffset;
+		const inputRef = inputBoxRef.current;
+		
+    const handleScroll = () => {
+      const currentScrollPosition = window.pageYOffset;
+			const inputRef = inputBoxRef.current;
+      
+      if ((currentScrollPosition > lastScrollPosition)) {
+        setGoingDown(true);
+      } else {
+        setGoingDown(false);
+      }
+
+			if (((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 100)) || (window.pageYOffset === 0) || (inputRef == document.activeElement)) {
+				setGoingDown(false);
+			}
+
+      lastScrollPosition = currentScrollPosition;
+    };
+
+    if (data.length != 0) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   
   useEffect(()=>{
@@ -264,34 +292,6 @@ const App = () => {
     }
     console.log('naught!');
   }, [variants, filterContent, replyingTo, isEditing, isReplying, hasCommented, hasEdited, hasReplied, hasDeleted, isComment, commentId, replyId]);
-
-  useEffect(() => {
-    let lastScrollPosition = window.pageYOffset;
-		const inputRef = inputBoxRef.current;
-		
-    const handleScroll = () => {
-      const currentScrollPosition = window.pageYOffset;
-			const inputRef = inputBoxRef.current;
-      
-      if ((currentScrollPosition > lastScrollPosition)) {
-        setGoingDown(true);
-      } else {
-        setGoingDown(false);
-      }
-
-			if (((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 100)) || (window.pageYOffset === 0) || (inputRef == document.activeElement)) {
-				setGoingDown(false);
-			}
-
-      lastScrollPosition = currentScrollPosition;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const changeUser = (user) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
