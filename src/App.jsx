@@ -492,7 +492,6 @@ const App = () => {
         return !checkReplyInfo;
       }
     });
-    console.log(checkReplyInfo);
     localStorage.setItem("comments", JSON.stringify(data));
     setData(JSON.parse(localStorage.getItem("comments")));
   }

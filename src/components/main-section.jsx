@@ -36,7 +36,6 @@ const MainSection = (props) => {
   const ReplyBox = (props) => {
     const [replyValue, setReplyValue] = useState('');
     const [inputScrollHeight, setInputScrollHeight] = useState(null);
-    console.log(props.currentUser);
     return(
       <div className="reply-input-box">
         <picture>
@@ -239,7 +238,6 @@ const MainSection = (props) => {
   const addReply = (comment, content) => {
     setPause(false);
     let id = commentData.indexOf(comment);
-    console.log(id);
     props.addReply(comment, content, id);
     setSavedReplyContent([false, false]);
   }
