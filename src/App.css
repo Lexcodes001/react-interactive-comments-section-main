@@ -640,7 +640,7 @@ button.disabled{
   .input-box{
     margin: auto;
     width: 43rem;
-    border: 1px solid rgba(103, 114, 126, .3);
+    border: 4px solid var(--light-gray);
     border-radius: .5rem .5rem 0 0;
     background-color: var(--opaq);
     backdrop-filter: blur(3px);

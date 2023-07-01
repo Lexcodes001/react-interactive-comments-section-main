@@ -174,7 +174,9 @@ const App = () => {
       };
       setDMsg(info);
       setCheckEditInfo(null);
-    } else if (isReplying && checkReplyInfo) {
+    }
+    
+    if (isReplying && checkReplyInfo) {
       info = {
         mode: 'dynamic',
         infoTag : <motion.p
@@ -187,7 +189,9 @@ const App = () => {
         };
       setDMsg(info);
       setCheckReplyInfo(null);
-    } else if (hasEdited) {
+    }
+    
+    if (hasEdited) {
       info = {
         mode: 'static',
         infoTag : <motion.p
@@ -203,7 +207,9 @@ const App = () => {
       setTimeout(function() {
         setSMsg([]);
       }, 5000);
-    } else if (hasReplied) {
+    }
+    
+    if (hasReplied) {
       info = {
         mode: 'static',
         infoTag : <motion.p
@@ -219,7 +225,9 @@ const App = () => {
       setTimeout(function() {
         setSMsg([]);
       }, 5000);
-    } else if (hasCommented) {
+    }
+    
+    if (hasCommented) {
       info = {
         mode: 'static',
         infoTag : <motion.p
@@ -235,7 +243,9 @@ const App = () => {
       setTimeout(function() {
         setSMsg([]);
       }, 5000);
-    } else if (hasDeleted) {
+    }
+    
+    if (hasDeleted) {
       info = {
         mode: 'static',
         infoTag : <motion.p
@@ -251,8 +261,6 @@ const App = () => {
         setTimeout(function() {
           setSMsg([]);
         }, 5000);
-    } else {
-      
     }
     console.log('naught!');
   }, [variants, filterContent, replyingTo, isEditing, isReplying, hasCommented, hasEdited, hasReplied, hasDeleted, isComment, commentId, replyId]);
