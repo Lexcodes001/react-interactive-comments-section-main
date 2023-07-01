@@ -1,6 +1,6 @@
 # Frontend Mentor - Interactive-Comments-Section solution
 
-This is a solution to the [Interactive-Comments-Section](https://www.frontendmentor.io/challenges/interactive-comments-section). 
+This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9). 
 
 ## Table of contents
 
@@ -18,15 +18,17 @@ This is a solution to the [Interactive-Comments-Section](https://www.frontendmen
 
 Users should be able to:
 
-- View the optimal layout for the game depending on their device's screen size
-- Play Rock, Paper, Scissors against the computer
-- Maintain the state of the score after refreshing the browser
-- **Bonus**: Play Rock, Paper, Scissors, Lizard, Spock against the computer
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Create, Read, Update, and Delete comments and replies
+- Upvote and downvote comments
+- Have the states of their comments and replies stored in the browser(i.e persists, even if the browser is reloaded).
+- See timestamps and dynamically track the time since the comment or reply was posted.
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/Lexcodes001/react-interactive-comments-section-main](https://github.com/Lexcodes001/react-interactive-comments-section-main)
+- Live Site URL: [https://react-comments-section-lexthedev00.netlify.app](https://react-comments-section-lexthedev00.netlify.app)
 
 ## My process
 
