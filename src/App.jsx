@@ -84,7 +84,22 @@ const App = () => {
   };
 
   const stickyElementRef = useRef(null);
-  const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || []);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || [
+		{
+      "id": 1,
+      "content": "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
+      "createdAt": "1 month ago",
+      "score": {"count": 12, "voteCheck": false},
+      "user": {
+        "image": { 
+          "png": "./src/assets/images/avatars/image-amyrobson.png",
+          "webp": "./src/assets/images/avatars/image-amyrobson.webp"
+        },
+        "username": "amyrobson"
+      },
+      "replies": []
+    }
+	]);
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || users[0]);
   const [modalState, setModalState] = useState(false);
   const [error, setError] = useState(null);
@@ -110,6 +125,8 @@ const App = () => {
   const [checkReplyInfo, setCheckReplyInfo] = useState(false);
   const [checkEditInfo, setCheckEditInfo] = useState(false);
   const inputBoxRef = useRef(null);
+
+	alert(data.length);
   
   useEffect(() => {
     fetch('./src/assets/data.json')
@@ -120,7 +137,6 @@ const App = () => {
         return response.json();
       })
       .then(jsonData => {
-				alert(data.length);
         if (data.length === 0) {
           localStorage.setItem("currentUser", JSON.stringify(jsonData.users[0]));
           localStorage.setItem("comments", JSON.stringify(jsonData.comments));
