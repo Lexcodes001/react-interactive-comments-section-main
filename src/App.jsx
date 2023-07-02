@@ -84,22 +84,7 @@ const App = () => {
   };
 
   const stickyElementRef = useRef(null);
-  const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || [
-		{
-      "id": 1,
-      "content": "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
-      "createdAt": "1 month ago",
-      "score": {"count": 12, "voteCheck": false},
-      "user": {
-        "image": { 
-          "png": "./src/assets/images/avatars/image-amyrobson.png",
-          "webp": "./src/assets/images/avatars/image-amyrobson.webp"
-        },
-        "username": "amyrobson"
-      },
-      "replies": []
-    }
-	]);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || []);
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || users[0]);
   const [modalState, setModalState] = useState(false);
   const [error, setError] = useState(null);
@@ -135,10 +120,10 @@ const App = () => {
         return response.json();
       })
       .then(jsonData => {
-        if (data.length === 0) {
+        if (data.length < 1) {
           localStorage.setItem("currentUser", JSON.stringify(jsonData.users[0]));
           localStorage.setItem("comments", JSON.stringify(jsonData.comments));
-          window.location.reload(false);
+          window.location.reload();
         }
       })
       .catch(error => setError(error));
@@ -330,7 +315,6 @@ const App = () => {
         },
         replies: []
       }
-      //data = data.filter(item => item != null);
       const newData = [...data];
       newData.push(commentInfo);
       setData(newData);
