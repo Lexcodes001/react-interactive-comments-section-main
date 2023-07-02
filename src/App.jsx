@@ -125,8 +125,6 @@ const App = () => {
   const [checkReplyInfo, setCheckReplyInfo] = useState(false);
   const [checkEditInfo, setCheckEditInfo] = useState(false);
   const inputBoxRef = useRef(null);
-
-	alert(data.length);
   
   useEffect(() => {
     fetch('./src/assets/data.json')
