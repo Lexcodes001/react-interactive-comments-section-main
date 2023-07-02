@@ -8,29 +8,29 @@ const App = () => {
   const users = [
     {
       image: { 
-        png: "./assets/images/avatars/image-juliusomo.png",
-        webp: "./assets/images/avatars/image-juliusomo.webp"
+        png: "../assets/images/avatars/image-juliusomo.png",
+        webp: "../assets/images/avatars/image-juliusomo.webp"
       },
       username: "juliusomo"
     },
     {
       image: { 
-          png: "./assets/images/avatars/image-amyrobson.png",
-          webp: "./assets/images/avatars/image-amyrobson.webp"
+          png: "../assets/images/avatars/image-amyrobson.png",
+          webp: "../assets/images/avatars/image-amyrobson.webp"
         },
         username: "amyrobson"
     },
     {
       image: { 
-          png: "./assets/images/avatars/image-maxblagun.png",
-          webp: "./assets/images/avatars/image-maxblagun.webp"
+          png: "../assets/images/avatars/image-maxblagun.png",
+          webp: "../assets/images/avatars/image-maxblagun.webp"
         },
         username: "maxblagun"
     },
     {
       image: { 
-        png: "./assets/images/avatars/image-ramsesmiron.png",
-        webp: "./assets/images/avatars/image-ramsesmiron.webp"
+        png: "../assets/images/avatars/image-ramsesmiron.png",
+        webp: "../assets/images/avatars/image-ramsesmiron.webp"
       },
       username: "ramsesmiron"
     }
@@ -85,7 +85,7 @@ const App = () => {
 
   const stickyElementRef = useRef(null);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || []);
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || users[0]);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || []);
   const [modalState, setModalState] = useState(false);
   const [error, setError] = useState(null);
   const [isComment, setIsComment] = useState(null);
@@ -112,7 +112,7 @@ const App = () => {
   const inputBoxRef = useRef(null);
   
   useEffect(() => {
-    fetch('/assets/data.json')
+    fetch('./assets/data.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching data');
