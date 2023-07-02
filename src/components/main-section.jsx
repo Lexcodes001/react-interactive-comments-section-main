@@ -28,6 +28,10 @@ const MainSection = (props) => {
     }
   }, [update, pause]);
 
+  if (props.error) {
+    return <div>Error: {props.error.message}</div>;
+  }
+
 
   const ReplyBox = (props) => {
     const [replyValue, setReplyValue] = useState('');
