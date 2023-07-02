@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Rubik';
-  src: url("./src/assets/fonts/Rubik-VariableFont.ttf") format("truetype");
+  src: url("./assets/fonts/Rubik-VariableFont.ttf") format("truetype");
 }
 
 ::-webkit-scrollbar{
