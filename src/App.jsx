@@ -8,29 +8,29 @@ const App = () => {
   const users = [
     {
       image: { 
-        png: "./src/assets/images/avatars/image-juliusomo.png",
-        webp: "./src/assets/images/avatars/image-juliusomo.webp"
+        png: "./assets/images/avatars/image-juliusomo.png",
+        webp: "./assets/images/avatars/image-juliusomo.webp"
       },
       username: "juliusomo"
     },
     {
       image: { 
-          png: "./src/assets/images/avatars/image-amyrobson.png",
-          webp: "./src/assets/images/avatars/image-amyrobson.webp"
+          png: "./assets/images/avatars/image-amyrobson.png",
+          webp: "./assets/images/avatars/image-amyrobson.webp"
         },
         username: "amyrobson"
     },
     {
       image: { 
-          png: "./src/assets/images/avatars/image-maxblagun.png",
-          webp: "./src/assets/images/avatars/image-maxblagun.webp"
+          png: "./assets/images/avatars/image-maxblagun.png",
+          webp: "./assets/images/avatars/image-maxblagun.webp"
         },
         username: "maxblagun"
     },
     {
       image: { 
-        png: "./src/assets/images/avatars/image-ramsesmiron.png",
-        webp: "./src/assets/images/avatars/image-ramsesmiron.webp"
+        png: "./assets/images/avatars/image-ramsesmiron.png",
+        webp: "./assets/images/avatars/image-ramsesmiron.webp"
       },
       username: "ramsesmiron"
     }
@@ -112,7 +112,7 @@ const App = () => {
   const inputBoxRef = useRef(null);
   
   useEffect(() => {
-    fetch('./src/assets/data.json')
+    fetch('./assets/data.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching data');
