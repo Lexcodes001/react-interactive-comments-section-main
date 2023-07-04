@@ -3,34 +3,42 @@ import { motion, AnimatePresence } from 'framer-motion';
 import UserToggle from "./components/user-toggle";
 import MainSection from './components/main-section';
 import './App.css';
+import ARPng from './assets/images/avatars/image-amyrobson.png';
+import ARWebp from './assets/images/avatars/image-amyrobson.webp';
+import JOPng from './assets/images/avatars/image-juliusomo.png';
+import JOWebp from './assets/images/avatars/image-juliusomo.webp';
+import MBPng from './assets/images/avatars/image-maxblagun.png';
+import MBWebp from './assets/images/avatars/image-maxblagun.webp';
+import RMPng from './assets/images/avatars/image-ramsesmiron.png';
+import RMWebp from './assets/images/avatars/image-ramsesmiron.webp';
 
 const App = () => {
   const users = [
     {
       image: { 
-        png: "./assets/images/avatars/image-juliusomo.png",
-        webp: "./assets/images/avatars/image-juliusomo.webp"
+        png: JOPng,
+        webp: JOWebp
       },
       username: "juliusomo"
     },
     {
       image: { 
-          png: "./assets/images/avatars/image-amyrobson.png",
-          webp: "./assets/images/avatars/image-amyrobson.webp"
+          png: ARPng,
+          webp: ARWebp
         },
         username: "amyrobson"
     },
     {
       image: { 
-          png: "./assets/images/avatars/image-maxblagun.png",
-          webp: "./assets/images/avatars/image-maxblagun.webp"
+          png: MBPng,
+          webp: MBWebp
         },
         username: "maxblagun"
     },
     {
       image: { 
-        png: "./assets/images/avatars/image-ramsesmiron.png",
-        webp: "./assets/images/avatars/image-ramsesmiron.webp"
+        png: RMPng,
+        webp: RMWebp
       },
       username: "ramsesmiron"
     }
@@ -112,7 +120,7 @@ const App = () => {
   const inputBoxRef = useRef(null);
   
   useEffect(() => {
-    fetch('./assets/data.json')
+    fetch('./src/assets/data.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching data');
@@ -121,9 +129,9 @@ const App = () => {
       })
       .then(jsonData => {
         if (data.length < 1) {
-          localStorage.setItem("currentUser", JSON.stringify(jsonData.users[0]));
-          localStorage.setItem("comments", JSON.stringify(jsonData.comments));
-          window.location.reload();
+          localStorage.setItem("currentUser", JSON.stringify(users[0]));
+          localStorage.setItem("comments", JSON.stringify(jsonData));
+          window.location.reload(false);
         }
       })
       .catch(error => setError(error));
