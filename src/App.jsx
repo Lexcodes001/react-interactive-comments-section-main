@@ -93,7 +93,7 @@ const App = () => {
 
   const stickyElementRef = useRef(null);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || []);
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || users[0]);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || []);
   const [modalState, setModalState] = useState(false);
   const [error, setError] = useState(null);
   const [isComment, setIsComment] = useState(null);
