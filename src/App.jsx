@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import UserToggle from "./components/user-toggle";
 import MainSection from './components/main-section';
 import './App.css';
-import ARPng from '/src/assets/images/avatars/image-amyrobson.png';
-import ARWebp from '/src/assets/images/avatars/image-amyrobson.webp';
-import JOPng from '/src/assets/images/avatars/image-juliusomo.png';
-import JOWebp from '/src/assets/images/avatars/image-juliusomo.webp';
-import MBPng from '/src/assets/images/avatars/image-maxblagun.png';
-import MBWebp from '/src/assets/images/avatars/image-maxblagun.webp';
-import RMPng from '/src/assets/images/avatars/image-ramsesmiron.png';
-import RMWebp from '/src/assets/images/avatars/image-ramsesmiron.webp';
+import ARPng from './assets/images/avatars/image-amyrobson.png';
+import ARWebp from './assets/images/avatars/image-amyrobson.webp';
+import JOPng from './assets/images/avatars/image-juliusomo.png';
+import JOWebp from './assets/images/avatars/image-juliusomo.webp';
+import MBPng from './assets/images/avatars/image-maxblagun.png';
+import MBWebp from './assets/images/avatars/image-maxblagun.webp';
+import RMPng from './assets/images/avatars/image-ramsesmiron.png';
+import RMWebp from './assets/images/avatars/image-ramsesmiron.webp';
 
 const App = () => {
   const users = [
@@ -93,7 +93,7 @@ const App = () => {
 
   const stickyElementRef = useRef(null);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("comments")) || []);
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || []);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || users[0]);
   const [modalState, setModalState] = useState(false);
   const [error, setError] = useState(null);
   const [isComment, setIsComment] = useState(null);
@@ -120,7 +120,7 @@ const App = () => {
   const inputBoxRef = useRef(null);
   
   useEffect(() => {
-    fetch('./src/assets/data.json')
+    fetch('./data.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching data');

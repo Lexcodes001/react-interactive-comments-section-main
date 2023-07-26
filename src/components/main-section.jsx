@@ -37,7 +37,11 @@ const MainSection = (props) => {
   }, [update, pause]);
 
   if (props.error) {
-    return <div>Error: {props.error.message}</div>;
+    return <div>Error is {props.error.message}</div>;
+  }
+  
+  if (commentData.length === 0) {
+    return <div>Error is: No Data</div>;
   }
 
 
