@@ -119,24 +119,50 @@ const App = () => {
   const [checkEditInfo, setCheckEditInfo] = useState(false);
   const inputBoxRef = useRef(null);
   
+  // Using Fetch API
+  // useEffect(() => {
+  //   fetch('./src/data.json')
+  //     .then(response => {
+  //       if (response.status !== 200) {
+  //         throw new Error('Error fetching data');
+  //       }
+  //       alert('status is', response.status);
+  //       return response.json();
+  //     })
+  //     .then(jsonData => {
+  //       if (data.length < 1) {
+  //         localStorage.setItem("currentUser", JSON.stringify(users[0]));
+  //         localStorage.setItem("comments", JSON.stringify(jsonData));
+  //         window.location.reload(false);
+  //       }
+  //     })
+  //     .catch(error => setError(error));
+  // }, []);
+  
   useEffect(() => {
-    fetch('./data.json')
-      .then(response => {
-        if (!response.ok) {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('./src/data.json'); 
+  
+        if (response.status !== 200) {
+          alert('status is ' + response.status);
           throw new Error('Error fetching data');
-          console.log('status is', response.status);
         }
-        return response.json();
-      })
-      .then(jsonData => {
+  
+        const jsonData = await response.json();
         if (data.length < 1) {
           localStorage.setItem("currentUser", JSON.stringify(users[0]));
           localStorage.setItem("comments", JSON.stringify(jsonData));
           window.location.reload(false);
         }
-      })
-      .catch(error => setError(error));
+      } catch (error) {
+        setError(error);
+      }
+    };
+    
+    fetchData();
   }, []);
+
 
   useEffect(() => {
     if (window.innerWidth < 769) {
