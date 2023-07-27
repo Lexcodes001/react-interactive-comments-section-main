@@ -142,7 +142,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('../src/data.json'); 
+        const response = await fetch('/data.json'); 
   
         if (response.status !== 200) {
           alert('status is ' + response.status);
