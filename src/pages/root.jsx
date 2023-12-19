@@ -14,6 +14,41 @@ import RMWebp from "../assets/images/avatars/image-ramsesmiron.webp";
 export const CurrentUserContext = createContext();
 export const ChangeUserContext = createContext();
 
+const users = [
+    {
+      image: {
+        png: JOPng,
+        webp: JOWebp,
+      },
+      username: "juliusomo",
+      fullname: "Julius Omo"
+    },
+    {
+      image: {
+        png: ARPng,
+        webp: ARWebp,
+      },
+      username: "amyrobson",
+      fullname: "Amy Robson"
+    },
+    {
+      image: {
+        png: MBPng,
+        webp: MBWebp,
+      },
+      username: "maxblagun",
+      fullname: "Max Blagun"
+    },
+    {
+      image: {
+        png: RMPng,
+        webp: RMWebp,
+      },
+      username: "ramsesmiron",
+      fullname: "Ramses Miron"
+    },
+  ];
+
 const RootLayout = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || users[0]

@@ -28,8 +28,7 @@ const useFetchData = () => {
       }
     };
 
-    if (
-      data.length < 1 &&
+    if ((localStorage.getItem("comments") === null) &&
       isLoading
     ) {
       // alert(JSON.parse(localStorage.getItem("comments")).length);
