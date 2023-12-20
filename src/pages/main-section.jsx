@@ -210,9 +210,8 @@ const MainSection = (props) => {
     const inputRef = inputBoxRef.current;
 
     const handleScroll = () => {
-      if (data.length !== 0) {
+      if (commentData) {
         const currentScrollPosition = window.pageYOffset;
-        const inputRef = inputBoxRef.current;
 
         if (currentScrollPosition > lastScrollPosition) {
           setGoingDown(true);
@@ -224,7 +223,7 @@ const MainSection = (props) => {
           window.innerHeight + window.pageYOffset >=
             document.body.offsetHeight - 100 ||
           window.pageYOffset === 0 ||
-          inputRef == document.activeElement
+          inputRef === document.activeElement
         ) {
           setGoingDown(false);
         }
@@ -238,17 +237,25 @@ const MainSection = (props) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [inputBoxRef]);
+  }, []);
 
   // For making sticky element
   useEffect(() => {
     if (window.innerWidth < 769) {
+      //alert(isSticky);
       const handleScroll = () => {
         const element = stickyElementRef.current;
 
         if (element) {
           const { bottom } = element.getBoundingClientRect();
-          setIsSticky(bottom >= window.innerHeight);
+          setIsSticky((prev)=>{
+            if(Math.floor(bottom) > window.innerHeight){
+              return true;
+            }
+             if(Math.floor(bottom) === window.innerHeight){
+              return false;
+            }
+          });
         }
       };
 
@@ -266,7 +273,7 @@ const MainSection = (props) => {
         window.removeEventListener("scroll", handleScrollEvent);
       };
     }
-  }, [window.pageYOffset, stickyElementRef, scrollListenerRef]);
+  }, [stickyElementRef, scrollListenerRef]);
 
   useEffect(() => {
     let randomTime = Math.floor(Math.random() * 3000);
