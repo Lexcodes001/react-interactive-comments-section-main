@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/navbar";
 import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
-import useScrollMovement from "../hooks/useScroll";
 import { CurrentUserContext } from "../pages/root";
 import ARPng from "../assets/images/avatars/image-amyrobson.png";
 import ARWebp from "../assets/images/avatars/image-amyrobson.webp";
@@ -152,16 +151,16 @@ const variants = {
     x: 0,
     transition: {
       type: "spring",
-      duration: 2,
+      duration: .8,
     },
   },
   hide: {
-    scale: 0.8,
+    scale: 0.95,
     opacity: 0,
     x: -10,
     transition: {
       type: "spring",
-      duration: 2,
+      duration: .8,
     },
   },
 };
@@ -239,41 +238,28 @@ const MainSection = (props) => {
     };
   }, []);
 
-  // For making sticky element
-  useEffect(() => {
-    if (window.innerWidth < 769) {
-      //alert(isSticky);
-      const handleScroll = () => {
-        const element = stickyElementRef.current;
+useEffect(() => {
+  if (window.innerWidth < 769) {
+    const handleScroll = () => {
+      const element = stickyElementRef.current;
 
-        if (element) {
-          const { bottom } = element.getBoundingClientRect();
-          setIsSticky((prev)=>{
-            if(Math.floor(bottom) > window.innerHeight){
-              return true;
-            }
-             if(Math.floor(bottom) === window.innerHeight){
-              return false;
-            }
-          });
-        }
-      };
+      if (element) {
+        const { bottom, height } = element.getBoundingClientRect();
+        const isNotAtBottom = Math.floor(bottom) > window.innerHeight;
 
-      scrollListenerRef.current = handleScroll;
+        setIsSticky(isNotAtBottom); // Set isSticky to false when element is at the bottom
+        console.log((bottom), window.innerHeight);
+      }
+    };
 
-      const handleScrollEvent = () => {
-        if (scrollListenerRef.current) {
-          scrollListenerRef.current();
-        }
-      };
+    window.addEventListener("scroll", handleScroll);
 
-      window.addEventListener("scroll", handleScrollEvent);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }
+}, [stickyElementRef]);
 
-      return () => {
-        window.removeEventListener("scroll", handleScrollEvent);
-      };
-    }
-  }, [stickyElementRef, scrollListenerRef]);
+
+
 
   useEffect(() => {
     let randomTime = Math.floor(Math.random() * 3000);
@@ -1186,7 +1172,6 @@ const MainSection = (props) => {
           initial="hide"
           animate="reveal"
           exit="hide"
-          transition={{ type: "spring", duration: 1 }}
         >
           <AnimatePresence initial={true} mode="popLayout">
             {commentData.map((comment, commentId) => (
@@ -1195,7 +1180,6 @@ const MainSection = (props) => {
                 initial="hide"
                 animate="reveal"
                 exit="hide"
-                transition={{ type: "spring", duration: 1 }}
                 key={commentId}
               >
                 <li

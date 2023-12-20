@@ -71,7 +71,9 @@ const RootLayout = () => {
       >
         <CurrentUserContext.Provider value={currentUser}>
           <main>
-            <Outlet />
+            <AnimatePresence initial={true} mode="popLayout">
+              <Outlet />
+            </AnimatePresence>
           </main>
         </CurrentUserContext.Provider>
       </ChangeUserContext.Provider>
